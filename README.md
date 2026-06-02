@@ -666,7 +666,7 @@ After configuring the SPICE model, execute post-layout simulation using ngspice.
 
 ### Generated Waveforms
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/trasient_response.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/transient_response.png)
 
 The waveform analysis provides information regarding rise time, fall time, and propagation delay.
 
@@ -729,7 +729,7 @@ This value represents the rise delay of the inverter under the simulated conditi
 ### Rise Delay Measurement
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/20%_rise.png)
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_cordinates.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_coordinates.png)
 
 ---
 
