@@ -460,6 +460,7 @@ Placement determines the exact locations of standard cells inside the core area 
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/placement_success.png)
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/placement_stats.png)
+
 ---
 
 ## Task 5: Analyze Placement Results in Magic
@@ -615,11 +616,12 @@ The extraction process converts the physical layout into a circuit representatio
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/extraction_spice.png)
 
 ### Generated SPICE File
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/extraction_spice.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/spice_generated.png)
 
 ### Running ngspice
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_simulation.png)
+
 
 The extracted SPICE netlist includes:
 
@@ -659,7 +661,7 @@ After configuring the SPICE model, execute post-layout simulation using ngspice.
 
 ### Simulation Commands
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/imagges/ngspice_simulation.png)
+![image alt]('insert image')
 
 
 ### Generated Waveforms
