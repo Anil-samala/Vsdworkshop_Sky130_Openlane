@@ -401,7 +401,7 @@ Run the floorplanning stage using the OpenLANE flow.
 
 ### Floorplan Execution
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/floorplan.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/floorplan.png)
 
 ---
 
