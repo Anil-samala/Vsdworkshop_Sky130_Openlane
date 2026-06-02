@@ -296,21 +296,21 @@ Characteristics of the core area:
 ### Aspect Ratio
 
 Aspect ratio describes the geometric shape of the floorplan and is calculated as:
-
+```math
 [
 \text{Aspect Ratio}=\frac{\text{Height}}{\text{Width}}
 ]
-
+```
 A balanced aspect ratio helps reduce routing congestion and improves placement quality.
 
 ### Core Utilization
 
 Core utilization indicates how much of the available core area is occupied by standard cells.
-
+```math
 [
 \text{Utilization}=\frac{\text{Standard Cell Area}}{\text{Core Area}}
 ]
-
+```
 Higher utilization improves area efficiency but may increase routing congestion, while lower utilization provides more routing flexibility.
 
 ---
@@ -421,15 +421,16 @@ Given:
 * Die Height = 671.405 µm
 
 Therefore,
-
+```math
 [
 \text{Die Area}=660.685 \times 671.405
 ]
-
+```
+```math
 [
 \text{Die Area}=443587.2\ \mu m^2
 ]
-
+```
 ---
 
 ## Task 3: Visualize the Floorplan Using Magic
@@ -672,31 +673,33 @@ The waveform analysis provides information regarding rise time, fall time, and p
 From the output waveform:
 
 * Output reaches 20% of VDD (0.66 V) at:
-
+```math
 [
 t_1 = 2.122\ ns
 ]
-
+```
 * Output reaches 80% of VDD (2.64 V) at:
-
+```math
 [
 t_2 = 2.249\ ns
 ]
-
+```
 Therefore,
-
+```math
 [
 \text{Fall Transition Time} = t_2 - t_1
 ]
-
+```
+```math
 [
 = 2.249 - 2.122
 ]
-
+```
+```math
 [
 = 0.127\ ns
 ]
-
+```
 ### Fall Time Measurement
 
 *(Insert Screenshot Here)*
@@ -706,15 +709,16 @@ Therefore,
 ## Rise Delay Calculation
 
 From the transient response:
-
+```math
 [
 t_{delay}=2.214-2.149
 ]
-
+```
+```math
 [
 =0.065\ ns
 ]
-
+```
 This value represents the rise delay of the inverter under the simulated conditions.
 
 ### Rise Delay Measurement
@@ -874,11 +878,11 @@ This delay directly contributes to the timing of downstream logic.
 ### Slack
 
 Slack measures the difference between the required arrival time and the actual arrival time of a signal.
-
+```math
 [
 Slack = Required\ Time - Arrival\ Time
 ]
-
+```
 Interpretation:
 
 * Positive Slack → Timing met
