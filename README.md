@@ -196,7 +196,8 @@ The first practical exercise involves synthesizing the PicoRV32A RISC-V processo
 
 ### Synthesis Results and Statistics
 
-*(Insert Screenshot Here)*
+![image_alt](https://github.com/Anil-samala/Vsdworkshop_Sky130_Openlane/edit/main/README.md/synthesis_success.png)
+
 
 The synthesis stage converts the RTL description into a gate-level netlist using cells from the selected standard-cell library.
 
