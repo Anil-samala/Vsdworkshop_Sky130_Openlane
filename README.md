@@ -196,7 +196,7 @@ The first practical exercise involves synthesizing the PicoRV32A RISC-V processo
 
 ### Synthesis Results and Statistics
 
-![image_alt](https://github.com/Anil-samala/Vsdworkshop_Sky130_Openlane/edit/main/README.md/synthesis_success.png)
+![image_alt](https://github.com/Anil-samala/Vsdworkshop_Sky130_Openlane/blob/main/synthesis_success.png)
 
 
 The synthesis stage converts the RTL description into a gate-level netlist using cells from the selected standard-cell library.
@@ -401,7 +401,7 @@ Run the floorplanning stage using the OpenLANE flow.
 
 ### Floorplan Execution
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/floorplan.png)
 
 ---
 
