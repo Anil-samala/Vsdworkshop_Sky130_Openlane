@@ -401,7 +401,7 @@ Run the floorplanning stage using the OpenLANE flow.
 
 ### Floorplan Execution
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/floorplan.png)
+('insert image here')
 
 ---
 
@@ -411,7 +411,7 @@ After floorplanning, open the generated DEF file and review the design dimension
 
 ### Opening the Floorplan DEF
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/floorplan_def_file.png)
 
 ### Design Measurements
 
@@ -440,7 +440,7 @@ Load the generated floorplan DEF file into Magic to inspect the physical layout.
 
 ### Floorplan Loaded in Magic
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/floorplan.png)
 
 ### I/O Port Placement
 
@@ -458,8 +458,8 @@ Placement determines the exact locations of standard cells inside the core area 
 
 ### Running Placement
 
-*(Insert Screenshot Here)*
-
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/placement_success.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/placement_stats.png)
 ---
 
 ## Task 5: Analyze Placement Results in Magic
@@ -468,7 +468,7 @@ Load the placement DEF file into Magic and inspect the placement quality.
 
 ### Placement Layout Visualization
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/cell_placement.png)
 
 The placement stage arranges synthesized standard cells within the core while maintaining legal spacing and optimizing for timing and routability.
 
@@ -590,8 +590,7 @@ After cloning the repository, open the inverter layout using Magic and inspect t
 
 ### CMOS Inverter Layout
 
-*(Insert Screenshot Here)*
-
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/inverter_layout.png)
 ### Device Identification
 
 The layout contains:
@@ -613,11 +612,10 @@ The extraction process converts the physical layout into a circuit representatio
 
 ### Extraction Commands
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/extraction_spice.png)
 
 ### Generated SPICE File
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/extraction_spice.png)
 
 ### Running ngspice
 
@@ -643,11 +641,13 @@ To perform transient analysis, the extracted SPICE file is edited by adding:
 
 ### Modified SPICE File
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/spice_file.png)
+
 
 ### Grid Configuration Command
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/grid_size.png)
+
 
 The updated file prepares the inverter for transient simulation and timing characterization.
 
@@ -659,11 +659,12 @@ After configuring the SPICE model, execute post-layout simulation using ngspice.
 
 ### Simulation Commands
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/imagges/ngspice_simulation.png)
+
 
 ### Generated Waveforms
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/trasient_response.png)
 
 The waveform analysis provides information regarding rise time, fall time, and propagation delay.
 
@@ -703,7 +704,8 @@ Therefore,
 ```
 ### Fall Time Measurement
 
-*(Insert Screenshot Here)*
+
+
 
 ---
 
@@ -724,7 +726,8 @@ This value represents the rise delay of the inverter under the simulated conditi
 
 ### Rise Delay Measurement
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/20%_rise.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_cordinates.png)
 
 ---
 
@@ -740,10 +743,14 @@ The objective is to:
 * Validate corrected DRC functionality
 
 ---
+### Commands Used for DRC Testing
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_commands.png)
+
 
 ### Commands Used for DRC Testing
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_cordinates.png)
+
 
 ### Magic Configuration File
 
@@ -756,8 +763,9 @@ The objective is to:
 An intentionally incorrect layout structure is created to test whether the technology file correctly detects a spacing violation.
 
 ### Incorrect Poly Spacing Example
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_poly.png)
 
-*(Insert Screenshot Here)*
+
 
 Although the spacing is smaller than the required limit of 0.48 μm, the original technology file does not flag a violation.
 
@@ -765,7 +773,8 @@ Although the spacing is smaller than the required limit of 0.48 μm, the origina
 
 ### DRC Violation Detection
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_error_reason.png)
+
 
 ---
 
