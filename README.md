@@ -208,9 +208,9 @@ After synthesis, analyze the generated reports to determine the proportion of se
 
 ### Flip-Flop Statistics
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/task_1_flop_ratio.png)
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/task_1_flop_ratio_dff.png)
 
 ### Flip-Flop Ratio Calculation
 
