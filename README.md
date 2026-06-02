@@ -224,11 +224,12 @@ The percentage of flip-flops present in the design can be calculated using:
 ]
 
 From the synthesis report:
-'''math
+```math
 Flop\ Ratio = \frac{1613}{14876} = 0.108429685
-[
+```
+```math
 \text{DFF Percentage} = 0.108429685 * 100 = 10.84296854\ \%
-]
+```
 
 This metric provides insight into the sequential logic content of the design.
 
