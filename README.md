@@ -215,14 +215,14 @@ After synthesis, analyze the generated reports to determine the proportion of se
 ### Flip-Flop Ratio Calculation
 
 The percentage of flip-flops present in the design can be calculated using:
-
+```math
 [
 \text{Flip-Flop Ratio} =
 \frac{\text{Number of DFF Cells}}
 {\text{Total Number of Cells}}
 \times 100
 ]
-
+```
 From the synthesis report:
 ```math
 Flop\ Ratio = \frac{1613}{14876} = 0.108429685
