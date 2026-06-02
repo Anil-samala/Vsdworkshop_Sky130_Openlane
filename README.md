@@ -1,168 +1,250 @@
 # vsdworkshop_sky130_openlane
 This repository summarizes my learning experience and practical work completed during the VSD-IAT Digital VLSI SoC Design program. The project demonstrates the complete RTL-to-GDSII ASIC implementation flow using the SkyWater 130nm Process Design Kit (PDK) and the OpenLANE framework.The work includes different stages of ASIC Design flow
-Day 1 – Introduction to Open-Source EDA Tools, OpenLANE, and Sky130 PDK
-Understanding the Software-to-Hardware Abstraction Stack
+# Day 1 – Introduction to Open-Source EDA Tools, OpenLANE, and Sky130 PDK
 
-Modern computing platforms are organized as multiple abstraction layers. Each layer hides the implementation complexity of the layer below it. Software applications do not communicate directly with transistor-level hardware; instead, they interact through the Instruction Set Architecture (ISA), which acts as a bridge between software and processor hardware.
+## Software-to-Hardware Abstraction Stack
 
-1. Application Layer
+Modern digital systems are built using multiple abstraction layers, where each layer simplifies the complexity of the layer beneath it. Application software never interacts directly with transistors. Instead, communication between software and hardware occurs through the **Instruction Set Architecture (ISA)**.
 
-This layer consists of user-oriented software such as calculators, web browsers, timers, and other applications.
+Understanding these layers is essential for appreciating how software eventually becomes a physical integrated circuit.
 
-Key characteristics:
+---
 
-Developed using high-level programming languages such as C, C++, Java, and Python.
-Independent of the underlying hardware implementation.
-Depends on operating systems and compiler tools for execution.
-2. System Software Layer
+## 1. Application Layer
 
-System software manages hardware resources and provides essential services required by applications.
+The application layer contains programs that users interact with daily, such as:
 
-Main responsibilities include:
+* Calculators
+* Stopwatches
+* Web browsers
+* Media players
 
-*Process management
-*Memory allocation
-*Device control
-*Input/Output management
+Characteristics:
+
+* Developed using high-level programming languages such as C, C++, Java, and Python.
+* Independent of specific hardware implementations.
+* Relies on operating systems and supporting software for execution.
+
+---
+
+## 2. System Software Layer
+
+System software manages the hardware resources available in a computer system and provides services required by applications.
+
+Major responsibilities include:
+
+* Process scheduling
+* Memory management
+* Device control
+* Input/Output operations
 
 Examples:
 
-Linux
-Windows
+* Linux
+* Windows
 
-This layer serves as an interface between applications and hardware resources.
+This layer acts as an interface between application software and the underlying hardware.
 
-3. Compiler and Assembler
+---
 
-The translation of software into executable machine instructions occurs in two stages:
+## 3. Compiler and Assembler
 
-The compiler converts high-level source code into assembly language instructions.
-The assembler translates assembly code into binary machine code that can be executed by the processor.
+Programs written in high-level languages cannot be executed directly by a processor. They must first be translated into machine-readable instructions.
 
-Because the ISA defines a standard instruction format, the same source code can target different processors by using the appropriate compiler toolchain.
+### Compiler
 
-4. Instruction Set Architecture (ISA – RISC-V)
+The compiler converts high-level source code into assembly language instructions that follow a particular ISA.
 
-The ISA specifies the set of instructions supported by a processor. It defines the behavior of the processor from a programmer’s perspective without describing the internal implementation.
+### Assembler
 
-Features of RISC-V:
+The assembler translates assembly instructions into binary machine code that can be executed by the processor.
 
-*Open-source architecture
-*Modular and scalable design
-*Extensible instruction set
-*Widely adopted in research and industry
+Because the ISA defines a standard interface, the same source code can target different processors using different compiler toolchains.
 
-The ISA acts as the contract between software developers and hardware designers.
+---
 
-5. Microarchitecture (RTL Design)
+## 4. Instruction Set Architecture (ISA – RISC-V)
+
+The Instruction Set Architecture specifies the set of instructions that a processor can execute.
+
+It defines:
+
+* Instruction formats
+* Register architecture
+* Memory access mechanisms
+* Arithmetic and logical operations
+
+### Features of RISC-V
+
+* Open-source architecture
+* Modular design
+* Highly scalable
+* Industry and academia friendly
+
+The ISA serves as the contract between software and hardware, ensuring compatibility regardless of the processor implementation.
+
+---
+
+## 5. Microarchitecture (RTL Implementation)
 
 Microarchitecture represents the actual hardware implementation of the ISA at the Register Transfer Level (RTL).
 
-Typical RTL components include:
+RTL designs are typically written using:
 
-i.  Instruction decoder
-ii. Register file
-iii.Control unit
-iv. Arithmetic and logic datapath
+* Verilog
+* VHDL
 
-RTL descriptions are commonly written using hardware description languages such as Verilog or VHDL.
+A processor implementation generally contains:
 
-Example:
+* Instruction decoder
+* Register file
+* Control logic
+* Arithmetic datapath
 
-PicoRV32 processor core
+### Example
 
-Different microarchitectures may implement the same ISA while providing different performance, power, and area characteristics.
+PicoRV32 is a lightweight RISC-V processor core implemented in Verilog.
 
-6. Physical Design and Fabrication
+Multiple microarchitectures can implement the same ISA while providing different trade-offs in terms of performance, power consumption, and area.
 
-Once the RTL design is completed, it undergoes several implementation stages:
+---
 
-I.  Logic synthesis
-II. Floorplanning
-III.Placement
-IV. Routing
-V.  Timing verification
-VI. Physical verification
+## 6. Physical Design and Fabrication
 
-The final output is a manufacturable GDSII layout that can be sent to a semiconductor foundry for fabrication.
+Once the RTL design is finalized, it is transformed into a manufacturable chip through several implementation stages.
 
-Key Concept
+These stages include:
 
-Software is designed for a specific ISA rather than a specific hardware implementation. Any processor that correctly implements the ISA can execute the same software regardless of its internal architecture.
+* Logic synthesis
+* Floorplanning
+* Placement
+* Clock Tree Synthesis (CTS)
+* Routing
+* Timing verification
+* Physical verification
 
-ASIC Design Flow (RTL to GDSII)
+The final outcome is a GDSII layout that can be sent to a semiconductor foundry for fabrication.
 
-The complete ASIC implementation process consists of the following stages:
+---
 
-I.Design Specification
-II.RTL Development
-III.Functional Verification
-IV.Logic Synthesis
-VI.Floorplanning
-VII.Placement
-VIII.Clock Tree Synthesis (CTS)
-IX.Routing
-X.Sign-off Verification (DRC, LVS, STA)
-XI.GDSII Generation
-Open-Source EDA Tools Used
+## Key Concept
 
-Several open-source Electronic Design Automation (EDA) tools are employed throughout the ASIC flow:
+Software is designed for a specific ISA rather than a specific hardware implementation.
+
+As long as a processor correctly implements the ISA specification, the same software can execute on different hardware implementations without modification.
+
+---
+
+## Complete ASIC Design Flow (RTL to GDSII)
+
+The standard ASIC design flow consists of the following stages:
+
+1. Design Specification
+2. RTL Design
+3. Functional Verification
+4. Logic Synthesis
+5. Floorplanning
+6. Placement
+7. Clock Tree Synthesis (CTS)
+8. Routing
+9. Sign-off Verification (DRC, LVS, STA)
+10. GDSII Generation
+
+Each stage progressively transforms the design from a high-level hardware description into a fabrication-ready physical layout.
+
+---
+
+## Open-Source EDA Tools
+
+Modern ASIC design can be performed using a variety of open-source Electronic Design Automation (EDA) tools.
 
 | Tool     | Purpose                      |
 | -------- | ---------------------------- |
 | Yosys    | Logic Synthesis              |
-| OpenLANE | Automated RTL-to-GDSII Flow  |
+| OpenLANE | Complete RTL-to-GDSII Flow   |
 | Magic    | Layout Visualization and DRC |
 | OpenSTA  | Static Timing Analysis       |
 | ngspice  | Circuit Simulation           |
 
-Sky130 Process Design Kit (PDK)
+These tools enable designers to implement and verify integrated circuits without relying on proprietary software.
 
-The Sky130 PDK provides all technology-related information required for chip design and fabrication.
+---
 
-The PDK includes:
+## Sky130 Process Design Kit (PDK)
 
-1.Device models
-2.Design rule files
-3.Standard cell libraries
-4.Technology characterization data
+The Sky130 PDK provides all process-specific information required for integrated circuit design and fabrication.
 
-Developed and released by SkyWater Technology, Sky130 is one of the first fully open-source PDKs available to the semiconductor community.
+The kit includes:
 
-Task 1: Run Synthesis for the picorv32a Design Using OpenLANE
-Launch OpenLANE and Perform Synthesis
+* Device models
+* Technology files
+* Design rules
+* Standard-cell libraries
+* Characterization data
 
-(Insert Screenshot Here)
+Developed by **SkyWater Technology**, the Sky130 PDK is one of the first fully open-source process technologies available to the semiconductor community.
 
-Synthesis Statistics
+---
 
-(Insert Screenshot Here)
+## Task 1: Run Synthesis for the `picorv32a` Design Using OpenLANE
 
-Task 2: Calculate the Flip-Flop Ratio
+The first practical exercise involves synthesizing the PicoRV32A RISC-V processor using the OpenLANE flow.
 
-(Insert Screenshot Here)
+### Launch OpenLANE and Start Synthesis
 
-(Insert Screenshot Here)
+*(Insert Screenshot Here)*
 
-Flip-Flop Percentage Calculation
-Flip-Flop Ratio=
-Total Number of Cells
-Number of DFF Cells
-	​
+### Synthesis Results and Statistics
 
-×100
+*(Insert Screenshot Here)*
 
-Result:
+The synthesis stage converts the RTL description into a gate-level netlist using cells from the selected standard-cell library.
 
-DFF Percentage=10.84%
-Day 1 Summary
-Key Takeaways
-1.Understood the complete software-to-silicon abstraction hierarchy.
-2.Learned the significance of the RISC-V Instruction Set Architecture.
-3.Explored the stages involved in the ASIC RTL-to-GDSII implementation flow.
-4.Familiarized with major open-source EDA tools used in digital VLSI design.
-5.Performed synthesis of the PicoRV32A design using OpenLANE.
-6Analyzed synthesis reports and computed the flip-flop utilization percentage.
+---
+
+## Task 2: Calculate the Flip-Flop Ratio
+
+After synthesis, analyze the generated reports to determine the proportion of sequential elements in the design.
+
+### Flip-Flop Statistics
+
+*(Insert Screenshot Here)*
+
+*(Insert Screenshot Here)*
+
+### Flip-Flop Ratio Calculation
+
+The percentage of flip-flops present in the design can be calculated using:
+
+[
+\text{Flip-Flop Ratio} =
+\frac{\text{Number of DFF Cells}}
+{\text{Total Number of Cells}}
+\times 100
+]
+
+From the synthesis report:
+
+[
+\text{DFF Percentage} = 10.84%
+]
+
+This metric provides insight into the sequential logic content of the design.
+
+---
+
+## Day 1 Summary
+
+### Key Takeaways
+
+* Understood the complete software-to-silicon abstraction hierarchy.
+* Learned the role of compilers, assemblers, and instruction set architectures.
+* Studied the significance of the RISC-V ISA.
+* Explored the RTL-to-GDSII ASIC implementation flow.
+* Familiarized with major open-source EDA tools used in digital VLSI design.
+* Performed synthesis of the PicoRV32A processor using OpenLANE.
+* Analyzed synthesis reports and calculated the flip-flop ratio of the design.
+
 
 # Day 2 – Floorplanning Fundamentals and Introduction to Standard Cell Libraries
 
