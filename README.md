@@ -661,7 +661,11 @@ After configuring the SPICE model, execute post-layout simulation using ngspice.
 
 ### Simulation Commands
 
-![image alt]('insert image')
+# Command to directly load spice file for simulation to ngspice
+ngspice sky130_inv.spice
+
+# Now that we have entered ngspice with the simulation spice file loaded we just have to load the plot
+plot y vs time a
 
 
 ### Generated Waveforms
@@ -779,6 +783,15 @@ Although the spacing is smaller than the required limit of 0.48 μm, the origina
 
 
 ---
+# **commands for tckon window**
+# Loading updated tech file
+tech load sky130A.tech
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
 
 ### Design Rule Investigation
 
@@ -1023,7 +1036,17 @@ Copy the required files into the design directory and update the OpenLANE config
 
 ### Copy Commands
 
-*(Insert Screenshot Here)*
+# Copy lef file
+cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# Copy lib files
+cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
 ### Configuration Updates
 
@@ -1034,6 +1057,21 @@ Copy the required files into the design directory and update the OpenLANE config
 ## Re-running Synthesis with Custom Cell
 
 Execute synthesis after introducing the custom inverter.
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+# Adiitional commands to include newly added lef to openlane flow
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
 
 ### Synthesis Execution
 
@@ -1053,13 +1091,33 @@ Design parameters are adjusted to improve timing performance.
 
 ### Parameter Modification Commands
 
-*(Insert Screenshot Here)*
+# Now once again we have to prep design so as to update variables
+prep -design picorv32a -tag 24-03_10-03 -overwrite
 
-*(Insert Screenshot Here)*
+# Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
 
-*(Insert Screenshot Here)*
+# Command to display current value of variable SYNTH_STRATEGY
+echo $::env(SYNTH_STRATEGY)
 
-*(Insert Screenshot Here)*
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+echo $::env(SYNTH_BUFFERING)
+
+# Command to display current value of variable SYNTH_SIZING
+echo $::env(SYNTH_SIZING)
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
 
 ---
 
@@ -1067,7 +1125,8 @@ Design parameters are adjusted to improve timing performance.
 
 ### Placement Execution
 
-*(Insert Screenshot Here)*
+# Now we are ready to run placement
+run_placement
 
 ### Merged LEF Verification
 
@@ -1139,9 +1198,33 @@ A gate with insufficient drive strength can negatively impact timing performance
 
 *(Insert Screenshot Here)*
 
+# Reports all the connections to a net
+report_net -connections _11672_
+
+# Checking command syntax
+help replace_cell
+
+# Replacing cell
+replace_cell _14510_ sky130_fd_sc_hd__or3_4
+
+# Generating custom timing report
+report_checks -fields {net cap slew input_pins} -digits 4
+
+#Commands to perform analysis and optimize timing by replacing with OR gate of drive strength 4
+# Reports all the connections to a net
+report_net -connections _11675_
+
+# Replacing cell
+replace_cell _14514_ sky130_fd_sc_hd__or3_4
+
+# Generating custom timing report
+report_checks -fields {net cap slew input_pins} -digits 4
+
 ### Drive Strength Optimization
 
 *(Insert Screenshot Here)*
+
+
 
 ### Updated STA Reports
 
@@ -1209,9 +1292,44 @@ After clock tree generation, perform timing analysis to verify timing closure.
 
 ### OpenROAD Commands
 
-*(Insert Screenshot Here)*
+# Command to run OpenROAD tool
+openroad
 
-*(Insert Screenshot Here)*
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/24-03_10-03/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/cts/picorv32a.cts.def
+
+# Creating an OpenROAD database to work with
+write_db pico_cts.db
+
+# Loading the created database in OpenROAD
+read_db pico_cts.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/synthesis/picorv32a.synthesis_cts.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Check syntax of 'report_checks' command
+help report_checks
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
 
 ### Timing Reports
 
@@ -1383,47 +1501,31 @@ across the entire chip.
 
 ### Commands Used
 
-*(Insert Screenshot Here)*
+# Change directory to path containing generated PDN def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/26-03_08-45/tmp/floorplan/
+
+# Command to load the PDN def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
 
 ---
 
-## DRC Verification
+## Routing Executionn
+# Command for detailed route using TritonRoute
+# Check value of 'CURRENT_DEF'
+echo $::env(CURRENT_DEF)
 
-### Verification Results
-
-*(Insert Screenshot Here)*
-
-The design successfully completes verification without any reported violations.
-
----
-
-## Routing Execution
-
-Perform routing using TritonRoute.
-
+# Check value of 'ROUTING_STRATEGY'
+echo $::env(ROUTING_STRATEGY)
+run_routing
 ### Routing Results
 
 *(Insert Screenshot Here)*
 
-*(Insert Screenshot Here)*
-
 ---
-
-## Routed Layout Analysis
 
 ### Routed DEF Visualization
 
 *(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-### FastRoute Guide
-
-*(Insert Screenshot Here)*
-
----
 
 ## Post-Route Timing Analysis
 
@@ -1431,7 +1533,44 @@ Following routing, perform timing verification using OpenROAD and OpenSTA.
 
 ### Timing Analysis Commands
 
-*(Insert Screenshot Here)*
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/26-03_08-45/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/26-03_08-45/results/routing/picorv32a.def
+
+# Creating an OpenROAD database to work with
+write_db pico_route.db
+
+# Loading the created database in OpenROAD
+read_db pico_route.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/26-03_08-45/results/synthesis/picorv32a.synthesis_preroute.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Read SPEF
+read_spef /openLANE_flow/designs/picorv32a/runs/26-03_08-45/results/routing/picorv32a.spef
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
 
 ### Timing Reports
 
