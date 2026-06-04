@@ -676,13 +676,13 @@ The updated file prepares the inverter for transient simulation and timing chara
 After configuring the SPICE model, execute post-layout simulation using ngspice.
 
 ### Simulation Commands
-
+```bash
 # Command to directly load spice file for simulation to ngspice
 ngspice sky130_inv.spice
 
 # Now that we have entered ngspice with the simulation spice file loaded we just have to load the plot
 plot y vs time a
-
+```
 
 ### Generated Waveforms
 
@@ -766,18 +766,32 @@ The objective is to:
 
 ---
 ### Commands Used for DRC Testing
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_commands.png)
+```bash
+# Change to home directory
+cd
 
+# Command to download the lab files
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
 
-### Commands Used for DRC Testing
+# Since lab file is compressed command to extract it
+tar xfz drc_tests.tgz
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_cordinates.png)
+# Change directory into the lab folder
+cd drc_tests
 
+# List all files and directories present in the current directory
+ls -al
+
+# Command to view .magicrc file
+gvim .magicrc
+
+# Command to open magic tool in better graphics
+magic -d XR &
 
 ### Magic Configuration File
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/task_1_flop_ratio_dff.png)
-
+```
 
 ---
 
