@@ -760,7 +760,8 @@ The objective is to:
 
 ### Magic Configuration File
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/task_1_flop_ratio_dff.png)
+
 
 ---
 
@@ -795,7 +796,8 @@ drc why
 
 ### Design Rule Investigation
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/drc_investigation.png)
+
 
 The corresponding technology rules are examined to determine the source of the missing DRC check.
 
@@ -807,11 +809,8 @@ Required modifications are added to the Sky130 technology file to properly enfor
 
 ### Added Rule Definitions
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/diff_rules.png)
 
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
 
 These modifications enable Magic to correctly identify previously undetected violations.
 
@@ -822,14 +821,8 @@ These modifications enable Magic to correctly identify previously undetected vio
 After updating the technology file, multiple test structures are examined to confirm correct DRC operation.
 
 ### Validation Results
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/drc_voilation.png)
 
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
 
 The updated technology file successfully detects the intended violations and confirms correct implementation of the design rules.
 
