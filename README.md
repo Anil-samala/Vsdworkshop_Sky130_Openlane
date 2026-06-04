@@ -196,7 +196,7 @@ The first practical exercise involves synthesizing the PicoRV32A RISC-V processo
 
 ### Synthesis Results and Statistics
 
-![image_alt](https://github.com/Anil-samala/Vsdworkshop_Sky130_Openlane/blob/main/synthesis_success.png)
+![image_alt](https://github.com/Anil-samala/Vsdworkshop_Sky130_Openlane/blob/main/images/synthesis_success.png)
 
 
 The synthesis stage converts the RTL description into a gate-level netlist using cells from the selected standard-cell library.
@@ -401,7 +401,7 @@ Run the floorplanning stage using the OpenLANE flow.
 
 ### Floorplan Execution
 
-('insert image here')
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/run_floorplan.png)
 
 ---
 
@@ -446,7 +446,7 @@ Load the generated floorplan DEF file into Magic to inspect the physical layout.
 
 The floorplan shows a uniform distribution of ports along the chip boundary. Proper port spacing improves signal accessibility and routing efficiency.
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/IO_placement_uniform.png)
 
 ---
 
@@ -724,13 +724,6 @@ Therefore,
 = 0.127\ ns
 ]
 ```
-### Fall Time Measurement
-
-
-
-
----
-
 ## Rise Delay Calculation
 
 From the transient response:
@@ -814,7 +807,8 @@ Although the spacing is smaller than the required limit of 0.48 μm, the origina
 
 
 ---
-# **commands for tckon window**
+# commands for tckon window
+```bash
 # Loading updated tech file
 tech load sky130A.tech
 
@@ -823,7 +817,7 @@ drc check
 
 # Selecting region displaying the new errors and getting the error messages 
 drc why
-
+```
 ### Design Rule Investigation
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_investigation.png)
@@ -1050,7 +1044,7 @@ The LEF contains:
 Copy the required files into the design directory and update the OpenLANE configuration.
 
 ### Copy Commands
-
+```bash
 Copy lef file
 cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
@@ -1062,7 +1056,7 @@ cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/de
 
 List and check whether it's copied
 ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
-
+```
 ### Configuration Updates
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/config_tcl.png)
@@ -1072,6 +1066,7 @@ ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 ## Re-running Synthesis with Custom Cell
 
 Execute synthesis after introducing the custom inverter.
+```bash
 # Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
 ./flow.tcl -interactive
 
@@ -1087,7 +1082,7 @@ add_lefs -src $lefs
 
 # Now that the design is prepped and ready, we can run synthesis using following command
 run_synthesis
-
+```
 ### Synthesis Execution
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/synthesis_succesfull_after_inv_insert.png)
