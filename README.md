@@ -194,7 +194,7 @@ The first practical exercise involves synthesizing the PicoRV32A RISC-V processo
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/flo_tcl_interactive.png)
 
-### Synthesis Results and Statistics
+### Synthesis Results
 
 ![image_alt](https://github.com/Anil-samala/Vsdworkshop_Sky130_Openlane/blob/main/images/synthesis_success.png)
 
