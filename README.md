@@ -580,9 +580,25 @@ Characterization data is later used in standard-cell timing libraries.
 A custom inverter layout repository is cloned to access the inverter design files and supporting resources.
 
 ### Repository Cloning Commands
+```bash
+# Change directory to openlane
+cd Desktop/work/tools/openlane_working_dir/openlane
 
-*(Insert Screenshot Here)*
+# Clone the repository with custom inverter design
+git clone https://github.com/nickson-jose/vsdstdcelldesign
 
+# Change into repository directory
+cd vsdstdcelldesign
+
+# Copy magic tech file to the repo directory for easy access
+cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+
+# Check contents whether everything is present
+ls
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+```
 ---
 
 ## Task 2: Load the Inverter Layout in Magic
@@ -796,7 +812,7 @@ drc why
 
 ### Design Rule Investigation
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/drc_investigation.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_investigation.png)
 
 
 The corresponding technology rules are examined to determine the source of the missing DRC check.
@@ -809,7 +825,7 @@ Required modifications are added to the Sky130 technology file to properly enfor
 
 ### Added Rule Definitions
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/diff_rules.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/diff_rules.png)
 
 
 These modifications enable Magic to correctly identify previously undetected violations.
@@ -821,7 +837,7 @@ These modifications enable Magic to correctly identify previously undetected vio
 After updating the technology file, multiple test structures are examined to confirm correct DRC operation.
 
 ### Validation Results
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/drc_voilation.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drc_voilation.png)
 
 
 The updated technology file successfully detects the intended violations and confirms correct implementation of the design rules.
@@ -993,17 +1009,9 @@ The standard cell width should be an odd multiple of the horizontal routing pitc
 
 The standard cell height should be an even multiple of the vertical routing pitch.
 
-### Routing Track Information
-
-*(Insert Screenshot Here)*
-
 ### Grid Alignment Verification
 
-*(Insert Screenshot Here)*
-
-### Conditions Successfully Verified
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/grid_alignment.png)
 
 ---
 
@@ -1019,7 +1027,7 @@ The LEF contains:
 
 ### Generated LEF File
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/generated_lef_file.png)
 
 ---
 
@@ -1029,21 +1037,21 @@ Copy the required files into the design directory and update the OpenLANE config
 
 ### Copy Commands
 
-# Copy lef file
+Copy lef file
 cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
-# List and check whether it's copied
+List and check whether it's copied
 ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
-# Copy lib files
+Copy lib files
 cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
-# List and check whether it's copied
+List and check whether it's copied
 ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
 ### Configuration Updates
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/config_tcl.png)
 
 ---
 
@@ -1068,11 +1076,11 @@ run_synthesis
 
 ### Synthesis Execution
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/synthesis_succesfull_after_inv_insert.png)
 
 ### Initial Synthesis Results
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/synthesis_results.png)
 
 Timing violations may appear due to the newly introduced cell characteristics.
 
@@ -1083,35 +1091,35 @@ Timing violations may appear due to the newly introduced cell characteristics.
 Design parameters are adjusted to improve timing performance.
 
 ### Parameter Modification Commands
+```bash
+Now once again we have to prep design so as to update variables
+prep -design picorv32a -tag 06-04_16-59 -overwrite
 
-# Now once again we have to prep design so as to update variables
-prep -design picorv32a -tag 24-03_10-03 -overwrite
-
-# Addiitional commands to include newly added lef to openlane flow merged.lef
+#Addiitional commands to include newly added lef to openlane flow merged.lef
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
 add_lefs -src $lefs
 
-# Command to display current value of variable SYNTH_STRATEGY
+#Command to display current value of variable SYNTH_STRATEGY
 echo $::env(SYNTH_STRATEGY)
 
-# Command to set new value for SYNTH_STRATEGY
+#Command to set new value for SYNTH_STRATEGY
 set ::env(SYNTH_STRATEGY) "DELAY 3"
 
-# Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+#Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
 echo $::env(SYNTH_BUFFERING)
 
-# Command to display current value of variable SYNTH_SIZING
+#Command to display current value of variable SYNTH_SIZING
 echo $::env(SYNTH_SIZING)
 
-# Command to set new value for SYNTH_SIZING
+#Command to set new value for SYNTH_SIZING
 set ::env(SYNTH_SIZING) 1
 
-# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+#Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
 echo $::env(SYNTH_DRIVING_CELL)
 
 # Now that the design is prepped and ready, we can run synthesis using following command
 run_synthesis
-
+```
 ---
 
 ## Placement with Updated Configuration
@@ -1121,33 +1129,11 @@ run_synthesis
 # Now we are ready to run placement
 run_placement
 
-### Merged LEF Verification
-
-*(Insert Screenshot Here)*
-
-### Successful Synthesis Results
-
-*(Insert Screenshot Here)*
-
-### Using Overwrite Tag
-
-*(Insert Screenshot Here)*
-
-### Improved Timing Results
-
-*(Insert Screenshot Here)*
-
----
-
 ## Placement Visualization
 
 ### Placement DEF in Magic
 
-*(Insert Screenshot Here)*
-
-### Internal Cell Structures
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/placement_def.png)
 
 ---
 
@@ -1155,31 +1141,20 @@ run_placement
 
 ### Timing Violation Report
 
-*(Insert Screenshot Here)*
-
-### Fanout Analysis
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/commands_timing_report1.png)
 
 ### Slack Report
 
-*(Insert Screenshot Here)*
-
-### Custom SDC Creation
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/reduced_slack2.png)
 
 ---
 
 ## STA Analysis Reports
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/report_sta_1.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/report_checks2.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/report_checks3.png)
 
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
 
 ---
 
@@ -1189,7 +1164,8 @@ A gate with insufficient drive strength can negatively impact timing performance
 
 ### OR Gate Driving Multiple Fanouts
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/or_fanout.png)
+
 
 # Reports all the connections to a net
 report_net -connections _11672_
@@ -1204,6 +1180,7 @@ replace_cell _14510_ sky130_fd_sc_hd__or3_4
 report_checks -fields {net cap slew input_pins} -digits 4
 
 #Commands to perform analysis and optimize timing by replacing with OR gate of drive strength 4
+```bash
 # Reports all the connections to a net
 report_net -connections _11675_
 
@@ -1212,26 +1189,11 @@ replace_cell _14514_ sky130_fd_sc_hd__or3_4
 
 # Generating custom timing report
 report_checks -fields {net cap slew input_pins} -digits 4
+```
 
 ### Drive Strength Optimization
 
-*(Insert Screenshot Here)*
-
-
-
-### Updated STA Reports
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-### Timing Improvement Results
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
----
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/drive_strength_opt.png)
 
 ## Netlist Update and Re-Implementation
 
@@ -1239,39 +1201,21 @@ After ECO optimization, replace the original synthesized netlist with the improv
 
 ### Backup Existing Netlist
 
-*(Insert Screenshot Here)*
-
-### Write Verilog Commands
-
-*(Insert Screenshot Here)*
-
-### Updated Netlist Verification
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/backup_eco_netlist.png)
 
 ---
 
 ## Re-run Physical Design Flow
 
 ### Synthesis
-
-*(Insert Screenshot Here)*
-
+       
 ### Floorplanning
-
-*(Insert Screenshot Here)*
 
 ### Placement
 
-*(Insert Screenshot Here)*
-
 ### Clock Tree Synthesis
 
-*(Insert Screenshot Here)*
-
 ### CTS Completion
-
-*(Insert Screenshot Here)*
 
 ---
 
@@ -1279,12 +1223,8 @@ After ECO optimization, replace the original synthesized netlist with the improv
 
 After clock tree generation, perform timing analysis to verify timing closure.
 
-### Post-CTS Reports
-
-*(Insert Screenshot Here)*
-
 ### OpenROAD Commands
-
+```bash
 # Command to run OpenROAD tool
 openroad
 
@@ -1323,38 +1263,11 @@ report_checks -path_delay min_max -fields {slew trans net cap input_pins} -forma
 
 # Exit to OpenLANE flow
 exit
-
-### Timing Reports
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
----
+```
 
 ## Clock Buffer Experiments
 
 To evaluate CTS behavior, remove selected clock buffers from the CTS buffer list and rerun timing analysis.
-
-### Modified CTS Configuration
-
-*(Insert Screenshot Here)*
-
-### Timing Reports
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
-
----
 
 ## Day 4 Summary
 
@@ -1486,46 +1399,46 @@ across the entire chip.
 
 ### PDN Generation
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/PDN_gen.png)
+
 
 ### PDN Visualization in Magic
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/PDN_magic_view.png)
 
 ### Commands Used
-
+```bash
 # Change directory to path containing generated PDN def
 cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/26-03_08-45/tmp/floorplan/
 
 # Command to load the PDN def in magic tool
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
-
+```
 ---
 
 ## Routing Executionn
-# Command for detailed route using TritonRoute
+# Commands for detailed route using TritonRoute
+```bash
 # Check value of 'CURRENT_DEF'
 echo $::env(CURRENT_DEF)
 
 # Check value of 'ROUTING_STRATEGY'
 echo $::env(ROUTING_STRATEGY)
+
 run_routing
-### Routing Results
-
-*(Insert Screenshot Here)*
-
----
-
+```
 ### Routed DEF Visualization
 
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/routed_def_view.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/route_deepview.png)
 
+---
 ## Post-Route Timing Analysis
 
 Following routing, perform timing verification using OpenROAD and OpenSTA.
 
 ### Timing Analysis Commands
-
+```bash
 # Command to run OpenROAD tool
 openroad
 
@@ -1564,12 +1477,10 @@ report_checks -path_delay min_max -fields {slew trans net cap input_pins} -forma
 
 # Exit to OpenLANE flow
 exit
-
+```
 ### Timing Reports
 
-*(Insert Screenshot Here)*
-
-*(Insert Screenshot Here)*
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/last_timing_results.png)
 
 The reports confirm timing behavior after routing parasitics have been included.
 
