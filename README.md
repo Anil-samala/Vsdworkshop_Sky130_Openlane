@@ -150,6 +150,8 @@ The standard ASIC design flow consists of the following stages:
 9. Sign-off Verification (DRC, LVS, STA)
 10. GDSII Generation
 
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ASIC_design_flow.png)
+
 Each stage progressively transforms the design from a high-level hardware description into a fabrication-ready physical layout.
 
 ---
