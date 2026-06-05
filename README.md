@@ -744,7 +744,7 @@ This value represents the rise delay of the inverter under the simulated conditi
 
 ### Rise Delay Measurement
 
-![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/20%_rise.png)
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/rise.png)
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/ngspice_coordinates.png)
 
 ---
