@@ -1175,19 +1175,6 @@ A gate with insufficient drive strength can negatively impact timing performance
 
 ![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/or_fanout.png)
 
-
-# Reports all the connections to a net
-report_net -connections _11672_
-
-# Checking command syntax
-help replace_cell
-
-# Replacing cell
-replace_cell _14510_ sky130_fd_sc_hd__or3_4
-
-# Generating custom timing report
-report_checks -fields {net cap slew input_pins} -digits 4
-
 #Commands to perform analysis and optimize timing by replacing with OR gate of drive strength 4
 ```bash
 # Reports all the connections to a net
