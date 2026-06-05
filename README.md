@@ -477,8 +477,7 @@ The placement stage arranges synthesized standard cells within the core while ma
 
 ---
 
-## Day 2 Summary
-
+## Learnings of Day2
 ### Key Takeaways
 
 * Learned the objectives and significance of floorplanning.
@@ -512,6 +511,8 @@ The inverter consists of:
 When the input changes state, one transistor turns ON while the other turns OFF, producing the complementary output.
 
 ---
+## Inception of Layout -CMOS Fabrication process final output image
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/fabrication.png)
 
 ## Layout Design Using Magic
 
@@ -854,7 +855,7 @@ The updated technology file successfully detects the intended violations and con
 
 ---
 
-## Day 3 Summary
+## Learnings of Day3
 
 ### Key Takeaways
 
@@ -1297,6 +1298,8 @@ The remaining objective is to create a manufacturable physical layout and verify
 ---
 
 ## Routing
+![image alt](https://github.com/Anil-samala/vsdworkshop_sky130_openlane/blob/main/images/Routing.png)
+
 
 Routing establishes electrical connections between all placed standard cells.
 
@@ -1505,7 +1508,7 @@ This marks the successful completion of the RTL-to-GDSII ASIC implementation flo
 
 ---
 
-## Day 5 Summary
+## Learnings of Day5
 
 ### Key Takeaways
 
